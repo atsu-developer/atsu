@@ -1,0 +1,1078 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ATSU — Aing Torang SekampUng</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Bebas+Neue&family=Orbitron:wght@700;900&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04040e;--surface:#07071a;--card:#0a0a1e;--card2:#0d0d24;--blue:#7090e8;--cyan:#50c0a0;--green:#40e880;--gold:#c8a84b;--red:#e05050;--text:#e0eeff;--muted:#4a6080;--border:#121230;--border2:#1a1a40;}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;overflow-x:hidden;cursor:none;}
+.cursor{position:fixed;width:10px;height:10px;background:var(--cyan);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);mix-blend-mode:difference;}
+.cursor-ring{position:fixed;width:32px;height:32px;border:1px solid rgba(112,144,232,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s ease;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;padding:1rem 2.5rem;display:flex;align-items:center;justify-content:space-between;background:rgba(4,4,14,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--border2);}
+.nav-logo{display:flex;align-items:center;gap:.8rem;}
+.nav-logo-text{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:3px;background:linear-gradient(135deg,#a0c8ff,#50c0a0,#40e880);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.nav-links{display:flex;gap:1.8rem;list-style:none;}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:.78rem;font-weight:500;letter-spacing:.5px;transition:color .2s;cursor:pointer;}
+.nav-links a:hover{color:var(--text);}
+.nav-right{display:flex;align-items:center;gap:.8rem;}
+/* USER PILL in nav */
+.user-pill{display:none;align-items:center;gap:.6rem;background:rgba(112,144,232,.1);border:1px solid rgba(112,144,232,.25);padding:.4rem .9rem .4rem .5rem;border-radius:100px;cursor:pointer;transition:background .2s;}
+.user-pill:hover{background:rgba(112,144,232,.2);}
+.user-pill.show{display:flex;}
+.user-pill-avatar{width:26px;height:26px;border-radius:50%;object-fit:cover;border:1px solid var(--cyan);}
+.user-pill-name{font-size:.72rem;font-weight:700;color:var(--text);}
+.user-pill-badge{font-size:.58rem;background:var(--cyan);color:#000;padding:.08rem .4rem;border-radius:100px;font-weight:700;}
+.nav-login-btn{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#000;padding:.55rem 1.4rem;border-radius:100px;font-size:.8rem;font-weight:700;text-decoration:none;border:none;cursor:pointer;font-family:'Sora',sans-serif;transition:transform .15s,opacity .2s;}
+.nav-login-btn:hover{transform:scale(1.04);opacity:.9;}
+
+/* HERO */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:8rem 2rem 4rem;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(112,144,232,.12),transparent 65%),radial-gradient(ellipse 40% 30% at 20% 80%,rgba(80,192,160,.06),transparent 60%);}
+.grid-lines{position:absolute;inset:0;background-image:linear-gradient(rgba(112,144,232,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(112,144,232,.04) 1px,transparent 1px);background-size:50px 50px;mask-image:radial-gradient(ellipse 80% 80% at 50% 50%,black,transparent);}
+.scan-line{position:absolute;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(80,192,160,.3),transparent);animation:scan 4s ease-in-out infinite;pointer-events:none;}
+@keyframes scan{0%{top:0;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:.5rem;background:rgba(112,144,232,.08);border:1px solid rgba(112,144,232,.2);color:var(--blue);font-size:.7rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;padding:.4rem 1rem;border-radius:100px;margin-bottom:2rem;animation:fadeDown .7s ease both;}
+.blink{width:6px;height:6px;background:var(--cyan);border-radius:50%;animation:blink 1.5s ease infinite;}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-16px)}to{opacity:1;transform:translateY(0)}}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(1.2rem,3vw,1.8rem);letter-spacing:8px;color:var(--muted);text-transform:uppercase;margin-bottom:.8rem;animation:fadeDown .7s .2s ease both;}
+.hero-subtitle{font-family:'Bebas Neue',sans-serif;font-size:clamp(1rem,2.5vw,1.3rem);letter-spacing:5px;color:var(--cyan);opacity:.7;margin-bottom:1.5rem;animation:fadeDown .7s .3s ease both;}
+.hero-tagline{font-size:clamp(.85rem,2vw,1rem);color:var(--muted);max-width:520px;margin:0 auto 2.5rem;line-height:1.75;animation:fadeDown .7s .4s ease both;}
+.hero-tagline strong{color:var(--cyan);font-weight:600;}
+.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;animation:fadeDown .7s .5s ease both;}
+.btn-primary{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#000;padding:.9rem 2rem;border-radius:100px;font-size:.88rem;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;box-shadow:0 8px 30px rgba(112,144,232,.25);transition:transform .2s,box-shadow .2s;border:none;cursor:pointer;font-family:'Sora',sans-serif;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(112,144,232,.35);}
+.btn-secondary{background:rgba(255,255,255,.04);border:1px solid var(--border2);color:var(--text);padding:.9rem 2rem;border-radius:100px;font-size:.88rem;font-weight:600;text-decoration:none;transition:background .2s,border-color .2s;}
+.btn-secondary:hover{background:rgba(255,255,255,.07);border-color:var(--muted);}
+.hero-stats{display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;margin-top:3.5rem;padding-top:2.5rem;border-top:1px solid var(--border2);animation:fadeDown .7s .6s ease both;}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:2.4rem;letter-spacing:2px;background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.stat-label{font-size:.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:.2rem;}
+
+/* MARQUEE */
+.marquee-wrap{background:var(--surface);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);padding:.85rem 0;overflow:hidden;}
+.marquee-track{display:flex;gap:2.5rem;animation:marquee 35s linear infinite;white-space:nowrap;}
+.marquee-item{display:flex;align-items:center;gap:.5rem;font-size:.72rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;flex-shrink:0;}
+@keyframes marquee{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+section{padding:5.5rem 2rem;}
+.container{max-width:1100px;margin:0 auto;}
+.section-eyebrow{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--cyan);margin-bottom:.8rem;}
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(2.2rem,5vw,3.8rem);letter-spacing:2px;line-height:1.05;margin-bottom:1rem;}
+.section-sub{color:var(--muted);font-size:.9rem;line-height:1.7;max-width:480px;}
+
+/* APPS */
+.apps-section{background:var(--surface);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);}
+.apps-category{margin-bottom:3rem;}
+.cat-label{font-size:.65rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--blue);margin-bottom:1.2rem;padding-bottom:.6rem;border-bottom:1px solid var(--border2);}
+.apps-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(125px,1fr));gap:1rem;}
+.app-card{background:var(--card2);border:1px solid var(--border2);border-radius:16px;padding:1.2rem 1rem;display:flex;flex-direction:column;align-items:center;gap:.6rem;text-decoration:none;color:var(--text);transition:border-color .25s,transform .25s;cursor:pointer;}
+.app-card:hover{border-color:var(--blue);transform:translateY(-4px);}
+.app-icon-wrap{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;}
+.app-name{font-size:.72rem;font-weight:700;text-align:center;}
+.app-desc{font-size:.58rem;color:var(--muted);text-align:center;line-height:1.4;}
+
+/* PHOTO GALLERY */
+.photo-gallery{position:relative;height:160px;background:var(--surface);overflow:hidden;border-bottom:1px solid var(--border2);}
+.photo-gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s;}
+.photo-gallery img.active{opacity:1;}
+.photo-gallery .no-photo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.5rem;color:var(--muted);}
+.gallery-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;gap:4px;z-index:2;}
+.gallery-dot{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.3);cursor:pointer;transition:background .2s;}
+.gallery-dot.active{background:white;}
+.gallery-nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,.5);border:none;color:white;width:26px;height:26px;border-radius:50%;cursor:pointer;font-size:.8rem;display:flex;align-items:center;justify-content:center;z-index:3;}
+.gallery-nav.prev{left:6px;}.gallery-nav.next{right:6px;}
+.kos-badge{position:absolute;top:10px;left:10px;background:var(--blue);color:#000;font-size:.58rem;font-weight:700;padding:.2rem .5rem;border-radius:4px;text-transform:uppercase;letter-spacing:1px;z-index:4;}
+.kos-avail{position:absolute;top:10px;right:10px;background:rgba(64,232,128,.15);border:1px solid rgba(64,232,128,.3);color:var(--green);font-size:.56rem;padding:.15rem .5rem;border-radius:4px;z-index:4;}
+
+/* KOS */
+.kos-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;margin-top:2.5rem;}
+.kos-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;overflow:hidden;transition:border-color .25s,transform .25s;}
+.kos-card:hover{border-color:var(--blue);transform:translateY(-4px);}
+.kos-body{padding:1.1rem;}
+.kos-name{font-weight:700;font-size:.92rem;margin-bottom:.25rem;}
+.kos-loc{font-size:.7rem;color:var(--muted);margin-bottom:.7rem;}
+.kos-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.9rem;}
+.kos-tag{background:rgba(112,144,232,.08);border:1px solid rgba(112,144,232,.15);color:var(--muted);font-size:.58rem;padding:.18rem .55rem;border-radius:100px;}
+.kos-footer{display:flex;align-items:center;justify-content:space-between;}
+.kos-price{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:1px;color:var(--cyan);}
+.kos-price span{font-family:'Sora',sans-serif;font-size:.62rem;color:var(--muted);font-weight:400;}
+.wa-btn{background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);color:#25d366;font-size:.68rem;font-weight:700;padding:.4rem .85rem;border-radius:100px;cursor:pointer;transition:background .2s;text-decoration:none;}
+.wa-btn:hover{background:rgba(37,211,102,.25);}
+.seller-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--cyan);flex-shrink:0;}
+.seller-avatar-placeholder{width:44px;height:44px;border-radius:50%;background:var(--surface);border:2px dashed var(--muted);display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0;}
+
+/* MARKETPLACE */
+.market-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:1.1rem;margin-top:2.5rem;}
+.market-card{background:var(--card);border:1px solid var(--border2);border-radius:14px;overflow:hidden;transition:border-color .25s,transform .25s;}
+.market-card:hover{border-color:var(--cyan);}
+.market-img-gallery{position:relative;height:120px;background:var(--surface);border-bottom:1px solid var(--border2);overflow:hidden;}
+.market-img-gallery img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .4s;}
+.market-img-gallery img.active{opacity:1;}
+.market-img-gallery .no-photo{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:2.3rem;}
+.market-cat{position:absolute;top:8px;left:8px;background:rgba(80,192,160,.15);border:1px solid rgba(80,192,160,.25);color:var(--cyan);font-size:.52rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;text-transform:uppercase;letter-spacing:1px;z-index:2;}
+.market-body{padding:.9rem;}
+.market-seller-row{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem;}
+.market-seller-info .name{font-size:.75rem;font-weight:700;}
+.market-seller-info .loc{font-size:.6rem;color:var(--muted);}
+.market-name{font-weight:600;font-size:.88rem;margin-bottom:.4rem;}
+
+/* RATING SUMMARY */
+.rating-summary{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;}
+.stars-display{display:flex;gap:1px;}
+.star{font-size:.8rem;color:#333;transition:color .15s;cursor:pointer;}
+.star.filled{color:var(--gold);}
+.rating-count{font-size:.65rem;color:var(--muted);}
+.sold-count{font-size:.65rem;color:var(--cyan);font-weight:600;}
+
+.market-footer{display:flex;align-items:center;justify-content:space-between;margin-top:.5rem;}
+.market-price{font-family:'Bebas Neue',sans-serif;font-size:1.15rem;letter-spacing:1px;color:var(--gold);}
+.market-wa{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25d366;font-size:.62rem;font-weight:700;padding:.32rem .65rem;border-radius:100px;cursor:pointer;text-decoration:none;transition:background .2s;}
+.market-wa:hover{background:rgba(37,211,102,.22);}
+
+/* REVIEW SECTION */
+.review-section{border-top:1px solid var(--border2);margin-top:.8rem;padding-top:.8rem;}
+.review-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.6rem;}
+.review-title{font-size:.7rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:1px;}
+.review-btn{background:none;border:1px solid rgba(112,144,232,.25);color:var(--blue);font-size:.62rem;font-weight:700;padding:.25rem .7rem;border-radius:100px;cursor:pointer;font-family:'Sora',sans-serif;transition:background .2s;}
+.review-btn:hover{background:rgba(112,144,232,.1);}
+.review-list{display:flex;flex-direction:column;gap:.5rem;max-height:160px;overflow-y:auto;}
+.review-list::-webkit-scrollbar{width:3px;}
+.review-list::-webkit-scrollbar-track{background:transparent;}
+.review-list::-webkit-scrollbar-thumb{background:var(--border2);border-radius:10px;}
+.review-item{background:var(--surface);border-radius:8px;padding:.6rem .7rem;}
+.review-meta{display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem;}
+.review-avatar{width:22px;height:22px;border-radius:50%;object-fit:cover;border:1px solid var(--border2);flex-shrink:0;}
+.review-uname{font-size:.68rem;font-weight:700;}
+.review-verified{font-size:.55rem;background:rgba(80,192,160,.15);border:1px solid rgba(80,192,160,.3);color:var(--cyan);padding:.05rem .35rem;border-radius:100px;}
+.review-stars{display:flex;gap:1px;margin-left:auto;}
+.review-star{font-size:.62rem;color:var(--gold);}
+.review-text{font-size:.7rem;color:var(--muted);line-height:1.5;}
+.review-date{font-size:.55rem;color:var(--border2);margin-top:.2rem;}
+.no-reviews{font-size:.7rem;color:var(--muted);text-align:center;padding:.5rem 0;font-style:italic;}
+
+/* INLINE REVIEW FORM */
+.review-form{background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:.8rem;margin-top:.6rem;display:none;}
+.review-form.open{display:block;}
+.star-picker{display:flex;gap:3px;margin-bottom:.5rem;}
+.star-pick{font-size:1.2rem;cursor:pointer;color:#333;transition:color .1s;}
+.star-pick.on{color:var(--gold);}
+.review-input{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:.55rem .8rem;border-radius:8px;font-size:.78rem;font-family:'Sora',sans-serif;outline:none;resize:none;transition:border-color .2s;}
+.review-input:focus{border-color:var(--blue);}
+.review-submit{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#000;border:none;padding:.5rem 1.2rem;border-radius:100px;font-size:.72rem;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;margin-top:.5rem;transition:transform .15s;}
+.review-submit:hover{transform:scale(1.03);}
+.review-login-notice{font-size:.7rem;color:var(--muted);font-style:italic;text-align:center;padding:.3rem 0;}
+
+/* TULUNG */
+.tulung-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1.2rem;margin-top:2.5rem;}
+.tulung-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;padding:1.4rem;transition:border-color .25s,transform .25s;}
+.tulung-card:hover{border-color:var(--green);transform:translateY(-4px);}
+.tulung-header{display:flex;align-items:center;gap:1rem;margin-bottom:1rem;}
+.tulung-info h4{font-size:.88rem;font-weight:700;}
+.tulung-info span{font-size:.65rem;color:var(--muted);}
+.tulung-route{background:var(--surface);border-radius:10px;padding:.85rem;margin-bottom:.9rem;display:flex;align-items:center;justify-content:space-between;}
+.route-point{text-align:center;}
+.route-label{font-size:.56rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-bottom:.2rem;}
+.route-place{font-size:.8rem;font-weight:700;}
+.route-arrow{color:var(--cyan);font-size:1.1rem;}
+.tulung-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-bottom:.9rem;}
+.tulung-tag{background:rgba(64,232,128,.08);border:1px solid rgba(64,232,128,.15);color:var(--green);font-size:.58rem;padding:.18rem .55rem;border-radius:100px;}
+.tulung-tag.shift{background:rgba(112,144,232,.08);border-color:rgba(112,144,232,.15);color:var(--blue);}
+.tulung-footer{display:flex;align-items:center;justify-content:space-between;}
+.tulung-price{font-family:'Bebas Neue',sans-serif;font-size:1.25rem;letter-spacing:1px;color:var(--cyan);}
+.tulung-wa{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25d366;font-size:.68rem;font-weight:700;padding:.4rem .85rem;border-radius:100px;cursor:pointer;text-decoration:none;transition:background .2s;}
+.tulung-wa:hover{background:rgba(37,211,102,.22);}
+
+/* BENGKEL */
+.service-section{background:var(--surface);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2);}
+.service-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:1.2rem;margin-top:2.5rem;}
+.svc-card{background:var(--card);border:1px solid var(--border2);border-radius:16px;overflow:hidden;transition:border-color .25s,transform .25s;}
+.svc-card:hover{border-color:var(--gold);transform:translateY(-4px);}
+.svc-img{height:90px;background:linear-gradient(135deg,var(--surface),var(--card2));display:flex;align-items:center;justify-content:center;font-size:3rem;border-bottom:1px solid var(--border2);position:relative;}
+.svc-type{position:absolute;top:8px;left:8px;font-size:.55rem;font-weight:700;padding:.18rem .55rem;border-radius:4px;letter-spacing:1px;text-transform:uppercase;}
+.svc-type.motor{background:rgba(200,168,75,.15);border:1px solid rgba(200,168,75,.3);color:var(--gold);}
+.svc-type.hp{background:rgba(112,144,232,.15);border:1px solid rgba(112,144,232,.3);color:var(--blue);}
+.svc-open{position:absolute;top:8px;right:8px;font-size:.55rem;font-weight:700;padding:.15rem .5rem;border-radius:4px;}
+.svc-open.buka{background:rgba(64,232,128,.15);border:1px solid rgba(64,232,128,.3);color:var(--green);}
+.svc-open.tutup{background:rgba(224,80,80,.1);border:1px solid rgba(224,80,80,.25);color:var(--red);}
+.svc-body{padding:1rem;}
+.svc-name{font-weight:700;font-size:.9rem;margin-bottom:.2rem;}
+.svc-loc{font-size:.68rem;color:var(--muted);margin-bottom:.6rem;}
+.svc-services{display:flex;flex-wrap:wrap;gap:.3rem;margin-bottom:.8rem;}
+.svc-tag{background:rgba(200,168,75,.08);border:1px solid rgba(200,168,75,.15);color:var(--gold);font-size:.56rem;padding:.15rem .5rem;border-radius:100px;}
+.svc-tag.hp-tag{background:rgba(112,144,232,.08);border-color:rgba(112,144,232,.15);color:var(--blue);}
+.svc-footer{display:flex;align-items:center;justify-content:space-between;}
+.svc-jam{font-size:.68rem;color:var(--muted);}
+.svc-wa{background:rgba(37,211,102,.1);border:1px solid rgba(37,211,102,.25);color:#25d366;font-size:.65rem;font-weight:700;padding:.35rem .75rem;border-radius:100px;text-decoration:none;cursor:pointer;transition:background .2s;}
+.svc-wa:hover{background:rgba(37,211,102,.22);}
+
+/* ADD BTN */
+.add-btn{display:inline-flex;align-items:center;gap:.5rem;border:none;padding:.8rem 2rem;border-radius:100px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:'Sora',sans-serif;transition:all .2s;margin-top:2rem;}
+.add-btn-kos{background:rgba(112,144,232,.1);border:1px solid rgba(112,144,232,.25);color:var(--blue);}
+.add-btn-kos:hover{background:rgba(112,144,232,.2);}
+.add-btn-market{background:rgba(80,192,160,.1);border:1px solid rgba(80,192,160,.25);color:var(--cyan);}
+.add-btn-market:hover{background:rgba(80,192,160,.2);}
+.add-btn-tulung{background:rgba(64,232,128,.08);border:1px solid rgba(64,232,128,.2);color:var(--green);}
+.add-btn-tulung:hover{background:rgba(64,232,128,.18);}
+.add-btn-svc{background:rgba(200,168,75,.08);border:1px solid rgba(200,168,75,.2);color:var(--gold);}
+.add-btn-svc:hover{background:rgba(200,168,75,.18);}
+
+/* CTA */
+.cta-section{text-align:center;padding:5rem 2rem;position:relative;overflow:hidden;}
+.cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 50% 50%,rgba(112,144,232,.08),transparent 70%);}
+.cta-box{position:relative;background:var(--card);border:1px solid var(--border2);border-radius:24px;padding:3.5rem 2.5rem;max-width:600px;margin:0 auto;box-shadow:0 40px 80px rgba(0,0,0,.5);}
+.cta-box h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(2rem,5vw,3rem);letter-spacing:3px;margin-bottom:1rem;background:linear-gradient(135deg,var(--blue),var(--cyan),var(--green));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.cta-box p{color:var(--muted);font-size:.88rem;max-width:380px;margin:0 auto 2rem;line-height:1.7;}
+footer{border-top:1px solid var(--border2);padding:2rem 2.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.footer-logo{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:3px;background:linear-gradient(135deg,var(--blue),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+.footer-text{font-size:.72rem;color:var(--muted);text-align:center;line-height:1.8;}
+.footer-text strong{color:var(--cyan);}
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ===== LOGIN MODAL ===== */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:500;display:none;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--card);border:1px solid var(--border2);border-radius:20px;padding:2rem;max-width:520px;width:100%;animation:popIn .35s ease;margin:auto;}
+.modal-box h3{font-family:'Bebas Neue',sans-serif;font-size:1.6rem;letter-spacing:2px;margin-bottom:.3rem;color:var(--cyan);}
+.modal-box>p{color:var(--muted);font-size:.8rem;line-height:1.6;margin-bottom:1.5rem;}
+@keyframes popIn{from{opacity:0;transform:scale(.88)}to{opacity:1;transform:scale(1)}}
+
+/* SOCIAL LOGIN BUTTONS */
+.social-login-grid{display:flex;flex-direction:column;gap:.75rem;margin-bottom:1.5rem;}
+.social-btn{display:flex;align-items:center;gap:.9rem;padding:.85rem 1.2rem;border-radius:12px;border:1px solid var(--border2);background:var(--surface);cursor:pointer;font-family:'Sora',sans-serif;font-size:.85rem;font-weight:600;color:var(--text);transition:border-color .2s,background .2s;width:100%;}
+.social-btn:hover{background:rgba(255,255,255,.04);}
+.social-btn.google:hover{border-color:#4285f4;}
+.social-btn.facebook:hover{border-color:#1877f2;}
+.social-btn.whatsapp:hover{border-color:#25d366;}
+.social-btn.tiktok:hover{border-color:#fe2c55;}
+.social-icon{width:36px;height:36px;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1.1rem;}
+.social-btn-text{text-align:left;}
+.social-btn-label{font-size:.85rem;font-weight:700;}
+.social-btn-sub{font-size:.65rem;color:var(--muted);font-weight:400;}
+.login-divider{display:flex;align-items:center;gap:.8rem;margin-bottom:1rem;}
+.login-divider::before,.login-divider::after{content:'';flex:1;height:1px;background:var(--border2);}
+.login-divider span{font-size:.68rem;color:var(--muted);}
+.phone-login-row{display:flex;gap:.5rem;}
+.phone-login-row input{flex:1;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:.75rem 1rem;border-radius:10px;font-size:.85rem;font-family:'Sora',sans-serif;outline:none;transition:border-color .2s;}
+.phone-login-row input:focus{border-color:var(--cyan);}
+.phone-login-row button{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#000;border:none;padding:.75rem 1.2rem;border-radius:10px;font-weight:700;font-size:.82rem;cursor:pointer;font-family:'Sora',sans-serif;transition:transform .15s;white-space:nowrap;}
+.phone-login-row button:hover{transform:scale(1.03);}
+
+/* FORM */
+.form-group{margin-bottom:1rem;}
+.form-group label{display:block;font-size:.7rem;font-weight:600;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:.4rem;}
+.form-group input,.form-group select,.form-group textarea{width:100%;background:var(--surface);border:1px solid var(--border2);color:var(--text);padding:.75rem 1rem;border-radius:10px;font-size:.85rem;font-family:'Sora',sans-serif;outline:none;transition:border-color .2s;}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--blue);}
+.form-group select option{background:var(--card);}
+.form-group textarea{resize:vertical;min-height:80px;}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;}
+.form-submit{width:100%;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#000;border:none;padding:.9rem;border-radius:100px;font-weight:700;font-size:.88rem;cursor:pointer;font-family:'Sora',sans-serif;transition:transform .15s;margin-top:.5rem;}
+.form-submit:hover{transform:scale(1.02);}
+.modal-close-btn{background:none;border:1px solid var(--border2);color:var(--muted);padding:.5rem 1.2rem;border-radius:100px;font-size:.75rem;cursor:pointer;font-family:'Sora',sans-serif;margin-top:.8rem;transition:background .2s;}
+.modal-close-btn:hover{background:rgba(255,255,255,.05);}
+.checkbox-group{display:flex;flex-wrap:wrap;gap:.5rem;}
+.checkbox-item{display:flex;align-items:center;gap:.4rem;font-size:.75rem;color:var(--muted);cursor:pointer;}
+.checkbox-item input{width:14px;height:14px;accent-color:var(--blue);}
+.file-upload-area{border:2px dashed var(--border2);border-radius:12px;padding:1.5rem;text-align:center;cursor:pointer;transition:border-color .2s;position:relative;overflow:hidden;}
+.file-upload-area:hover{border-color:var(--blue);}
+.file-upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;}
+.file-upload-label{font-size:.78rem;color:var(--muted);line-height:1.6;}
+.file-upload-label strong{color:var(--cyan);}
+.preview-grid{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.8rem;}
+.preview-img{width:64px;height:64px;border-radius:8px;object-fit:cover;border:1px solid var(--border2);}
+.preview-item{position:relative;display:inline-block;}
+.preview-remove{position:absolute;top:-5px;right:-5px;background:var(--red);color:white;border:none;border-radius:50%;width:18px;height:18px;font-size:.65rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:2;}
+.upload-note{font-size:.65rem;color:var(--muted);margin-top:.5rem;}
+.upload-required{border-color:rgba(224,80,80,.4);}
+.req-badge{font-size:.6rem;background:rgba(224,80,80,.15);border:1px solid rgba(224,80,80,.3);color:var(--red);padding:.1rem .4rem;border-radius:4px;margin-left:.4rem;}
+
+#toast{position:fixed;bottom:2rem;left:50%;transform:translateX(-50%) translateY(100px);background:var(--card);border:1px solid var(--cyan);color:var(--text);padding:.75rem 1.8rem;border-radius:100px;font-size:.82rem;font-weight:600;z-index:999;transition:transform .3s cubic-bezier(.25,.8,.25,1);white-space:nowrap;}
+
+@media(max-width:768px){
+  nav{padding:1rem 1.2rem;}
+  .nav-links{display:none;}
+  .apps-grid{grid-template-columns:repeat(3,1fr);}
+  .form-row{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <svg width="34" height="34" viewBox="0 0 500 500"><defs><radialGradient id="nbg" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#0a0a1e"/><stop offset="100%" stop-color="#020208"/></radialGradient><linearGradient id="nc" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a0c8ff"/><stop offset="50%" stop-color="#50c0a0"/><stop offset="100%" stop-color="#40e880"/></linearGradient><filter id="ng"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="250" cy="250" r="245" fill="url(#nbg)"/><circle cx="250" cy="250" r="242" fill="none" stroke="rgba(112,144,232,0.4)" stroke-width="2"/><text x="250" y="282" font-family="'Bebas Neue',sans-serif" font-size="148" text-anchor="middle" fill="url(#nc)" filter="url(#ng)" letter-spacing="2">ATSU</text></svg>
+    <div class="nav-logo-text">ATSU</div>
+  </div>
+  <ul class="nav-links">
+    <li><a onclick="sc('apps')">Layanan</a></li>
+    <li><a onclick="sc('kos')">Kos-Kosan</a></li>
+    <li><a onclick="sc('market')">Marketplace</a></li>
+    <li><a onclick="sc('tulung')">Tulung</a></li>
+    <li><a onclick="sc('bengkel')">Bengkel & Service</a></li>
+  </ul>
+  <div class="nav-right">
+    <!-- User pill (shown after login) -->
+    <div class="user-pill" id="userPill" onclick="logout()">
+      <img class="user-pill-avatar" id="pillAvatar" src="" alt="">
+      <span class="user-pill-name" id="pillName"></span>
+      <span class="user-pill-badge" id="pillBadge"></span>
+    </div>
+    <button class="nav-login-btn" id="loginBtn" onclick="openModal('loginModal')">Masuk / Daftar</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div><div class="grid-lines"></div><div class="scan-line"></div>
+  <div style="position:relative;z-index:1">
+    <div class="hero-eyebrow"><div class="blink"></div>Weda Bay · Halmahera Tengah · Digital</div>
+    <div style="margin-bottom:1.5rem;animation:fadeDown .7s .1s ease both">
+      <svg width="155" height="155" viewBox="0 0 500 500"><defs><radialGradient id="hbg" cx="50%" cy="30%" r="70%"><stop offset="0%" stop-color="#0a0a1e"/><stop offset="100%" stop-color="#020208"/></radialGradient><linearGradient id="hc" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#a0c8ff"/><stop offset="30%" stop-color="#7090e8"/><stop offset="60%" stop-color="#50c0a0"/><stop offset="100%" stop-color="#40e880"/></linearGradient><filter id="hf"><feGaussianBlur stdDeviation="8" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs><circle cx="250" cy="250" r="245" fill="url(#hbg)"/><circle cx="250" cy="250" r="242" fill="none" stroke="rgba(112,144,232,0.4)" stroke-width="1.5"/><g fill="none" stroke-width="3" stroke-linecap="round"><path d="M 250,18 A 232,232 0 0,1 450,180" stroke="rgba(112,144,232,0.5)"/><path d="M 250,482 A 232,232 0 0,1 50,320" stroke="rgba(80,192,160,0.5)"/></g><circle cx="250" cy="250" r="190" fill="none" stroke="rgba(112,144,232,0.15)" stroke-width="1" stroke-dasharray="4 8"/><text x="250" y="282" font-family="'Bebas Neue',sans-serif" font-size="148" text-anchor="middle" fill="url(#hc)" filter="url(#hf)" letter-spacing="2">ATSU</text><text x="250" y="316" font-family="'Orbitron',monospace" font-size="10.5" font-weight="700" text-anchor="middle" fill="rgba(112,144,232,0.75)" letter-spacing="5">WEDA BAY · DIGITAL</text><path id="ht" d="M 62,250 A 188,188 0 0,1 438,250" fill="none"/><text font-family="'Orbitron',monospace" font-size="9" fill="rgba(112,144,232,0.4)" letter-spacing="3.5"><textPath href="#ht" startOffset="8%">AING · TORANG · SEKAMPUNG · HALMAHERA</textPath></text></svg>
+    </div>
+    <div class="hero-title">Aing Torang SekampUng</div>
+    <div class="hero-subtitle">Satu Platform · Banyak Solusi</div>
+    <p class="hero-tagline">Dari <strong>kos-kosan</strong>, <strong>Tulung bareng</strong>, <strong>marketplace lokal</strong>, <strong>bengkel & service HP</strong> — semua dalam satu genggaman untuk torang di Weda Bay.</p>
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="openModal('loginModal')">🚀 Bergabung Sekarang</button>
+      <a href="#apps" class="btn-secondary" onclick="event.preventDefault();sc('apps')">Lihat Semua Fitur</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">17+</div><div class="stat-label">Layanan Digital</div></div>
+      <div class="stat"><div class="stat-num">6</div><div class="stat-label">Fitur Utama</div></div>
+      <div class="stat"><div class="stat-num">4</div><div class="stat-label">Metode Login</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Masa Depan</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div class="marquee-item">🏠 Kos-Kosan</div><div class="marquee-item">👍 Tulung</div><div class="marquee-item">🛒 Marketplace</div><div class="marquee-item">🔧 Bengkel Motor</div><div class="marquee-item">📱 Service HP</div><div class="marquee-item">🔑 Login Google</div><div class="marquee-item">📘 Login Facebook</div><div class="marquee-item">💬 Login WhatsApp</div><div class="marquee-item">🎵 Login TikTok</div><div class="marquee-item">⭐ Rating & Ulasan</div><div class="marquee-item">💰 Smart Salary</div><div class="marquee-item">🏦 BRImo</div><div class="marquee-item">🏥 BPJS Kesehatan</div>
+    <div class="marquee-item">🏠 Kos-Kosan</div><div class="marquee-item">👍 Tulung</div><div class="marquee-item">🛒 Marketplace</div><div class="marquee-item">🔧 Bengkel Motor</div><div class="marquee-item">📱 Service HP</div><div class="marquee-item">🔑 Login Google</div><div class="marquee-item">📘 Login Facebook</div><div class="marquee-item">💬 Login WhatsApp</div><div class="marquee-item">⭐ Rating & Ulasan</div>
+  </div>
+</div>
+
+<!-- LAYANAN -->
+<section id="apps" class="apps-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">✦ Semua Layanan</div>
+      <h2 class="section-title">Satu Klik,<br>Langsung Terhubung</h2>
+      <p class="section-sub">Klik icon — langsung terbuka aplikasinya di Play Store atau website resmi.</p>
+    </div>
+    <div class="apps-category reveal" style="margin-top:2.5rem">
+      <div class="cat-label">💳 Keuangan & Gaji</div>
+      <div class="apps-grid">
+        <a class="app-card" href="https://play.google.com/store/apps/details?id=com.bri.brimobi" target="_blank"><div class="app-icon-wrap" style="background:#003d82"><svg width="40" height="40" viewBox="0 0 100 100"><rect width="100" height="100" fill="#003d82"/><text x="50" y="58" font-family="Arial Black" font-size="28" font-weight="900" text-anchor="middle" fill="white">BRI</text><rect x="15" y="65" width="70" height="4" fill="#f0a500" rx="2"/><text x="50" y="82" font-family="Arial" font-size="13" font-weight="700" text-anchor="middle" fill="#f0a500">mo</text></svg></div><div class="app-name">BRImo</div><div class="app-desc">M-Banking BRI</div></a>
+        <a class="app-card" href="https://play.google.com/store/apps/details?id=com.bankmandiri.superapp" target="_blank"><div class="app-icon-wrap" style="background:#003087"><svg width="40" height="40" viewBox="0 0 100 100"><rect width="100" height="100" fill="#003087"/><text x="50" y="45" font-family="Arial Black" font-size="11" font-weight="900" text-anchor="middle" fill="#f5a623">livin'</text><text x="50" y="62" font-family="Arial Black" font-size="11" text-anchor="middle" fill="white">by mandiri</text><rect x="20" y="68" width="60" height="3" fill="#f5a623" rx="2"/></svg></div><div class="app-name">Livin' Mandiri</div><div class="app-desc">M-Banking Mandiri</div></a>
+        <a class="app-card" href="https://play.google.com/store/apps/details?id=com.smartsalaryonprem" target="_blank"><div class="app-icon-wrap" style="background:#1565c0"><svg width="40" height="40" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1565c0"/><circle cx="50" cy="42" r="22" fill="none" stroke="white" stroke-width="6"/><text x="50" y="50" font-family="Arial Black" font-size="24" font-weight="900" text-anchor="middle" fill="white">S</text><text x="50" y="80" font-family="Arial" font-size="10" font-weight="600" text-anchor="middle" fill="#90caf9">SALARY</text></svg></div><div class="app-name">Smart Salary</div><div class="app-desc">Gaji Digital</div></a>
+      </div>
+    </div>
+    <div class="apps-category reveal">
+      <div class="cat-label">🛡️ BPJS & Kesehatan</div>
+      <div class="apps-grid">
+        <a class="app-card" href="https://play.google.com/store/apps/details?id=com.bpjstku" target="_blank"><div class="app-icon-wrap" style="background:#1b8a3e"><svg width="40" height="40" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1b8a3e"/><text x="50" y="48" font-family="Arial Black" font-size="28" font-weight="900" text-anchor="middle" fill="white">JMO</text><text x="50" y="68" font-family="Arial" font-size="9.5" font-weight="600" text-anchor="middle" fill="#a5d6a7">Jamsostek Mobile</text></svg></div><div class="app-name">JMO BPJS</div><div class="app-desc">Klaim JHT</div></a>
+        <a class="app-card" href="https://play.google.com/store/apps/details?id=com.bpjs.mobile" target="_blank"><div class="app-icon-wrap" style="background:#00a79d"><svg width="40" height="40" viewBox="0 0 100 100"><rect width="100" height="100" fill="#00a79d"/><text x="50" y="38" font-family="Arial Black" font-size="11" font-weight="900" text-anchor="middle" fill="white">BPJS</text><text x="50" y="58" font-family="Arial Black" font-size="10" font-weight="700" text-anchor="middle" fill="white">Kesehatan</text><path d="M 42 68 L 50 60 L 58 68 L 58 80 L 42 80 Z" fill="white" opacity="0.9"/></svg></div><div class="app-name">BPJS Kesehatan</div><div class="app-desc">Mobile JKN</div></a>
+      </div>
+    </div>
+    <div class="apps-category reveal">
+      <div class="cat-label">📱 Sosial Media & Chat</div>
+      <div class="apps-grid">
+        <a class="app-card" href="https://play.google.com/store/apps/details?id=com.whatsapp" target="_blank"><div class="app-icon-wrap" style="background:#25d366"><svg width="40" height="40" viewBox="0 0 100 100"><rect width="100" height="100" fill="#25d366"/><circle cx="50" cy="47" r="26" fill="white"/><circle cx="50" cy="47" r="22" fill="#25d366"/><path d="M 36 62 Q 34 72 30 74 Q 40 70 44 68 Q 46 69 50 69 Q 66 69 72 56 Q 78 44 70 35 Q 62 26 50 26 Q 34 26 30 40 Q 26 54 36 62 Z" fill="white"/></svg></div><div class="app-name">WhatsApp</div><div class="app-desc">Chat & Koordinasi</div></a>
+        <a class="app-card" href="https://play.google.com/store/apps/details?id=com.facebook.katana" target="_blank"><div class="app-icon-wrap" style="background:#1877f2"><svg width="40" height="40" viewBox="0 0 100 100"><rect width="100" height="100" fill="#1877f2"/><text x="54" y="72" font-family="Arial Black" font-size="68" font-weight="900" text-anchor="middle" fill="white">f</text></svg></div><div class="app-name">Facebook</div><div class="app-desc">Komunitas Lokal</div></a>
+        <a class="app-card" href="https://play.google.com/store/apps/details?id=com.instagram.android" target="_blank"><div class="app-icon-wrap"><svg width="56" height="56" viewBox="0 0 100 100"><defs><radialGradient id="ig" cx="30%" cy="107%" r="150%"><stop offset="0%" stop-color="#fdf497"/><stop offset="45%" stop-color="#fd5949"/><stop offset="60%" stop-color="#d6249f"/><stop offset="90%" stop-color="#285AEB"/></radialGradient></defs><rect width="100" height="100" fill="url(#ig)" rx="22"/><rect x="18" y="18" width="64" height="64" rx="18" fill="none" stroke="white" stroke-width="5"/><circle cx="50" cy="50" r="16" fill="none" stroke="white" stroke-width="5"/><circle cx="72" cy="28" r="5" fill="white"/></svg></div><div class="app-name">Instagram</div><div class="app-desc">Foto & Reels</div></a>
+        <a class="app-card" href="https://play.google.com/store/apps/details?id=com.zhiliaoapp.musically" target="_blank"><div class="app-icon-wrap" style="background:#010101"><svg width="40" height="40" viewBox="0 0 100 100"><rect width="100" height="100" fill="#010101"/><text x="50" y="68" font-family="Arial Black" font-size="60" font-weight="900" text-anchor="middle" fill="#fe2c55">♪</text><text x="62" y="56" font-family="Arial Black" font-size="60" font-weight="900" text-anchor="middle" fill="#25f4ee" opacity="0.7">♪</text><text x="56" y="62" font-family="Arial Black" font-size="60" font-weight="900" text-anchor="middle" fill="white" opacity="0.9">♪</text></svg></div><div class="app-name">TikTok</div><div class="app-desc">Video Pendek</div></a>
+        <a class="app-card" href="https://play.google.com/store/apps/details?id=com.tencent.mm" target="_blank"><div class="app-icon-wrap" style="background:#07c160"><svg width="40" height="40" viewBox="0 0 100 100"><rect width="100" height="100" fill="#07c160"/><ellipse cx="38" cy="45" rx="22" ry="18" fill="white"/><circle cx="30" cy="45" r="4" fill="#07c160"/><circle cx="42" cy="45" r="4" fill="#07c160"/><ellipse cx="65" cy="55" rx="18" ry="14" fill="rgba(255,255,255,0.85)"/><circle cx="58" cy="55" r="3" fill="#07c160"/><circle cx="68" cy="55" r="3" fill="#07c160"/></svg></div><div class="app-name">WeChat</div><div class="app-desc">Chat Global</div></a>
+        <a class="app-card" href="https://play.google.com/store/apps/details?id=com.google.android.youtube" target="_blank"><div class="app-icon-wrap" style="background:#ff0000"><svg width="40" height="40" viewBox="0 0 100 100"><rect width="100" height="100" fill="#ff0000"/><rect x="12" y="28" width="76" height="44" rx="12" fill="white"/><polygon points="40,36 40,64 68,50" fill="#ff0000"/></svg></div><div class="app-name">YouTube</div><div class="app-desc">Video & Edukasi</div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KOS -->
+<section id="kos">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">✦ Kos-Kosan</div>
+      <h2 class="section-title">Cari Kos<br>Sekitar Weda Bay</h2>
+      <p class="section-sub">Daftar gratis. Upload 1–4 foto kos wajib. Hubungi langsung via WhatsApp.</p>
+    </div>
+    <div class="kos-grid" id="kosGrid">
+      <div class="kos-card reveal">
+        <div class="photo-gallery"><div class="no-photo">🏡</div><div class="kos-badge">Populer</div><div class="kos-avail">✓ Tersedia</div></div>
+        <div class="kos-body"><div class="kos-name">Kos Pak Haji Bahar</div><div class="kos-loc">📍 Lelilef Woebulen, 200m dari Gate 3</div><div class="kos-tags"><span class="kos-tag">AC</span><span class="kos-tag">WiFi</span><span class="kos-tag">KM Dalam</span><span class="kos-tag">Parkir Motor</span></div><div class="kos-footer"><div class="kos-price">Rp 1,5 Jt <span>/bulan</span></div><a class="wa-btn" href="https://wa.me/6281234567890" target="_blank">💬 WA</a></div></div>
+      </div>
+      <div class="kos-card reveal">
+        <div class="photo-gallery"><div class="no-photo">🏘️</div><div class="kos-avail">✓ Tersedia</div></div>
+        <div class="kos-body"><div class="kos-name">Kos Bu Linda</div><div class="kos-loc">📍 Gemaf, 350m dari Gate 7</div><div class="kos-tags"><span class="kos-tag">Dapur Bersama</span><span class="kos-tag">Mesin Cuci</span><span class="kos-tag">KM Luar</span></div><div class="kos-footer"><div class="kos-price">Rp 900 Rb <span>/bulan</span></div><a class="wa-btn" href="https://wa.me/6281234567891" target="_blank">💬 WA</a></div></div>
+      </div>
+    </div>
+    <div style="text-align:center"><button class="add-btn add-btn-kos reveal" onclick="guardedOpen('kosModal')">🏠 Daftarkan Kos Kamu — Gratis!</button></div>
+  </div>
+</section>
+
+<!-- MARKETPLACE -->
+<section id="market" style="background:var(--surface);border-top:1px solid var(--border2);border-bottom:1px solid var(--border2)">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">✦ Marketplace Lokal</div>
+      <h2 class="section-title">Jual Beli<br>Area Weda Bay</h2>
+      <p class="section-sub">Pasang gratis. Foto bareng dagangan wajib. Rating & komentar hanya untuk yang sudah login.</p>
+    </div>
+    <div class="market-grid" id="marketGrid">
+      <!-- Produk 1 -->
+      <div class="market-card reveal">
+        <div class="market-img-gallery"><div class="no-photo">🍱</div><div class="market-cat">Makanan</div></div>
+        <div class="market-body">
+          <div class="market-seller-row"><div class="seller-avatar-placeholder">👩</div><div class="market-seller-info"><div class="name">Bu Sari</div><div class="loc">📍 Lelilef</div></div></div>
+          <div class="market-name">Nasi Kotak Harian</div>
+          <div class="rating-summary">
+            <div class="stars-display" id="stars_0"></div>
+            <span class="rating-count" id="rcount_0">4.8 (12 ulasan)</span>
+            <span class="sold-count" id="sold_0">· 48 terjual</span>
+          </div>
+          <div class="market-footer"><div class="market-price">Rp 20.000</div><a class="market-wa" href="https://wa.me/6281234567893" target="_blank">💬 WA</a></div>
+          <div class="review-section" id="reviewSection_0">
+            <div class="review-header"><span class="review-title">💬 Ulasan Pembeli</span><button class="review-btn" onclick="toggleReviewForm(0)">+ Tulis Ulasan</button></div>
+            <div class="review-form" id="reviewForm_0">
+              <div id="reviewFormContent_0"></div>
+            </div>
+            <div class="review-list" id="reviewList_0"></div>
+          </div>
+        </div>
+      </div>
+      <!-- Produk 2 -->
+      <div class="market-card reveal">
+        <div class="market-img-gallery"><div class="no-photo">🛵</div><div class="market-cat">Kendaraan</div></div>
+        <div class="market-body">
+          <div class="market-seller-row"><div class="seller-avatar-placeholder">👨</div><div class="market-seller-info"><div class="name">Pak Riko</div><div class="loc">📍 Gemaf</div></div></div>
+          <div class="market-name">Motor Beat 2020 Bekas</div>
+          <div class="rating-summary">
+            <div class="stars-display" id="stars_1"></div>
+            <span class="rating-count" id="rcount_1">5.0 (3 ulasan)</span>
+            <span class="sold-count" id="sold_1">· 1 terjual</span>
+          </div>
+          <div class="market-footer"><div class="market-price">Rp 8,5 Jt</div><a class="market-wa" href="https://wa.me/6281234567894" target="_blank">💬 WA</a></div>
+          <div class="review-section" id="reviewSection_1">
+            <div class="review-header"><span class="review-title">💬 Ulasan Pembeli</span><button class="review-btn" onclick="toggleReviewForm(1)">+ Tulis Ulasan</button></div>
+            <div class="review-form" id="reviewForm_1">
+              <div id="reviewFormContent_1"></div>
+            </div>
+            <div class="review-list" id="reviewList_1"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="text-align:center"><button class="add-btn add-btn-market reveal" onclick="guardedOpen('marketModal')">🛒 Pasang Produkmu — Gratis!</button></div>
+  </div>
+</section>
+
+<!-- TULUNG -->
+<section id="tulung">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">✦ Tulung — Tumpangan Lokal</div>
+      <h2 class="section-title">👍 Tulung<br>Bareng ke Kerja</h2>
+      <p class="section-sub">Foto wajib agar penumpang tahu siapa yang menjemput. Daftar gratis.</p>
+    </div>
+    <div class="tulung-grid" id="tulungGrid">
+      <div class="tulung-card reveal">
+        <div class="tulung-header"><div class="seller-avatar-placeholder">👨</div><div class="tulung-info"><h4>Bung Aldi Musa</h4><span>⭐ 4.9 · Motor</span></div></div>
+        <div class="tulung-route"><div class="route-point"><div class="route-label">Dari</div><div class="route-place">Lelilef</div></div><div class="route-arrow">→</div><div class="route-point"><div class="route-label">Tujuan</div><div class="route-place">Gate 7</div></div></div>
+        <div class="tulung-tags"><span class="tulung-tag shift">⏰ Shift 3</span><span class="tulung-tag">🛵 Motor</span><span class="tulung-tag">👥 1 Seat</span></div>
+        <div class="tulung-footer"><div class="tulung-price">Rp 10.000<span style="font-family:'Sora';font-size:.62rem;color:var(--muted);font-weight:400">/trip</span></div><a class="tulung-wa" href="https://wa.me/6281234567897" target="_blank">👍 Tulung</a></div>
+      </div>
+      <div class="tulung-card reveal">
+        <div class="tulung-header"><div class="seller-avatar-placeholder">👩</div><div class="tulung-info"><h4>Kak Siti Rahma</h4><span>⭐ 5.0 · Mobil</span></div></div>
+        <div class="tulung-route"><div class="route-point"><div class="route-label">Dari</div><div class="route-place">Gemaf</div></div><div class="route-arrow">→</div><div class="route-point"><div class="route-label">Tujuan</div><div class="route-place">Gate 3</div></div></div>
+        <div class="tulung-tags"><span class="tulung-tag shift">⏰ Shift 1</span><span class="tulung-tag">🚗 Mobil</span><span class="tulung-tag">👥 3 Seat</span></div>
+        <div class="tulung-footer"><div class="tulung-price">Rp 15.000<span style="font-family:'Sora';font-size:.62rem;color:var(--muted);font-weight:400">/trip</span></div><a class="tulung-wa" href="https://wa.me/6281234567898" target="_blank">👍 Tulung</a></div>
+      </div>
+    </div>
+    <div style="text-align:center"><button class="add-btn add-btn-tulung reveal" onclick="guardedOpen('tulungModal')">👍 Tawarkan Tumpanganmu — Gratis!</button></div>
+  </div>
+</section>
+
+<!-- BENGKEL -->
+<section id="bengkel" class="service-section">
+  <div class="container">
+    <div class="reveal">
+      <div class="section-eyebrow">✦ Bengkel & Service HP</div>
+      <h2 class="section-title">Motor Mogok?<br>HP Rusak? Tenang!</h2>
+      <p class="section-sub">Bengkel & service HP terpercaya di Weda Bay. Hubungi langsung via WhatsApp.</p>
+    </div>
+    <div class="service-grid" id="svcGrid">
+      <div class="svc-card reveal"><div class="svc-img">🔧<div class="svc-type motor">Bengkel Motor</div><div class="svc-open buka">● Buka</div></div><div class="svc-body"><div class="svc-name">Bengkel Pak Udin</div><div class="svc-loc">📍 Lelilef Woebulen, dekat Gate 5</div><div class="svc-services"><span class="svc-tag">Ganti Oli</span><span class="svc-tag">Tune-Up</span><span class="svc-tag">Ganti Ban</span><span class="svc-tag">Kelistrikan</span></div><div class="svc-footer"><div class="svc-jam">⏰ 07.00–20.00</div><a class="svc-wa" href="https://wa.me/6281234567900" target="_blank">💬 WA</a></div></div></div>
+      <div class="svc-card reveal"><div class="svc-img">⚙️<div class="svc-type motor">Bengkel Motor</div><div class="svc-open buka">● Buka</div></div><div class="svc-body"><div class="svc-name">Bengkel Jaya Motor</div><div class="svc-loc">📍 Gemaf, Dekat Pasar</div><div class="svc-services"><span class="svc-tag">Servis Rutin</span><span class="svc-tag">Rem & Kopling</span><span class="svc-tag">Rantai</span></div><div class="svc-footer"><div class="svc-jam">⏰ 08.00–18.00</div><a class="svc-wa" href="https://wa.me/6281234567901" target="_blank">💬 WA</a></div></div></div>
+      <div class="svc-card reveal"><div class="svc-img">📱<div class="svc-type hp">Service HP</div><div class="svc-open buka">● Buka</div></div><div class="svc-body"><div class="svc-name">Tukang HP Bung Alex</div><div class="svc-loc">📍 Weda Tengah, Ruko Komplek B</div><div class="svc-services"><span class="svc-tag hp-tag">Ganti Layar</span><span class="svc-tag hp-tag">Baterai</span><span class="svc-tag hp-tag">Kamera</span><span class="svc-tag hp-tag">Speaker</span></div><div class="svc-footer"><div class="svc-jam">⏰ 09.00–21.00</div><a class="svc-wa" href="https://wa.me/6281234567902" target="_blank">💬 WA</a></div></div></div>
+      <div class="svc-card reveal"><div class="svc-img">🔋<div class="svc-type hp">Service HP</div><div class="svc-open tutup">● Tutup</div></div><div class="svc-body"><div class="svc-name">GadgetCare Weda</div><div class="svc-loc">📍 Lelilef Sawai, Depan Alfamart</div><div class="svc-services"><span class="svc-tag hp-tag">Semua Merek</span><span class="svc-tag hp-tag">Flash/Install Ulang</span><span class="svc-tag hp-tag">Antivirus</span></div><div class="svc-footer"><div class="svc-jam">⏰ 08.00–17.00</div><a class="svc-wa" href="https://wa.me/6281234567903" target="_blank">💬 WA</a></div></div></div>
+    </div>
+    <div style="text-align:center"><button class="add-btn add-btn-svc reveal" onclick="guardedOpen('svcModal')">🔧 Daftarkan Bengkel / Service HP — Gratis!</button></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section" id="daftar">
+  <div class="cta-bg"></div>
+  <div class="cta-box reveal">
+    <div style="font-size:2.5rem;margin-bottom:1rem">🚀</div>
+    <h2>Gabung ATSU Sekarang</h2>
+    <p>Gratis untuk semua warga Weda Bay. Login dengan Google, Facebook, WhatsApp, atau TikTok!</p>
+    <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap">
+      <button class="btn-primary" onclick="openModal('loginModal')" style="font-size:.8rem;padding:.75rem 1.6rem">🔑 Masuk / Daftar</button>
+    </div>
+    <p style="font-size:.68rem;color:var(--muted);margin-top:1.2rem">✓ 100% Gratis &nbsp;·&nbsp; ✓ Login Mudah &nbsp;·&nbsp; ✓ Data Aman</p>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">ATSU</div>
+  <div class="footer-text">© 2025 ATSU — <strong>Aing Torang SekampUng</strong><br>Weda Bay · Halmahera Tengah · Maluku Utara</div>
+  <div style="font-size:.72rem;color:var(--muted);text-align:right">Aing Torang —<br><em style="color:var(--cyan)">kita semua saudara di sini</em></div>
+</footer>
+
+<div id="toast"></div>
+
+<!-- ===== LOGIN MODAL ===== -->
+<div class="modal-overlay" id="loginModal">
+  <div class="modal-box" style="max-width:420px">
+    <h3>🔑 Masuk ke ATSU</h3>
+    <p>Pilih metode login favoritmu. Gratis & aman!</p>
+    <div class="social-login-grid">
+      <button class="social-btn google" onclick="doLogin('Google','https://lh3.googleusercontent.com/a/default-user','G')">
+        <div class="social-icon" style="background:#fff"><svg width="22" height="22" viewBox="0 0 48 48"><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.16C6.51 42.62 14.62 48 24 48z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.16C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.75l7.97-6.16z"/><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.16C12.43 13.72 17.74 9.5 24 9.5z"/></svg></div>
+        <div class="social-btn-text"><div class="social-btn-label">Lanjutkan dengan Google</div><div class="social-btn-sub">Gmail / Akun Google</div></div>
+      </button>
+      <button class="social-btn facebook" onclick="doLogin('Facebook','','F')">
+        <div class="social-icon" style="background:#1877f2"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
+        <div class="social-btn-text"><div class="social-btn-label">Lanjutkan dengan Facebook</div><div class="social-btn-sub">Akun Facebook kamu</div></div>
+      </button>
+      <button class="social-btn tiktok" onclick="doLogin('TikTok','','T')">
+        <div class="social-icon" style="background:#010101"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.18 8.18 0 004.79 1.54V6.78a4.85 4.85 0 01-1.02-.09z"/></svg></div>
+        <div class="social-btn-text"><div class="social-btn-label">Lanjutkan dengan TikTok</div><div class="social-btn-sub">Akun TikTok kamu</div></div>
+      </button>
+    </div>
+    <div class="login-divider"><span>atau pakai nomor WhatsApp</span></div>
+    <div class="phone-login-row">
+      <input type="tel" id="waLoginInput" placeholder="Nomor WhatsApp (628xxx...)">
+      <button onclick="doLoginWA()">Masuk →</button>
+    </div>
+    <p style="font-size:.65rem;color:var(--muted);margin-top:.8rem;text-align:center">Dengan masuk, kamu setuju dengan <span style="color:var(--cyan)">Syarat & Ketentuan</span> ATSU</p>
+    <br><button class="modal-close-btn" onclick="closeModal('loginModal')">Tutup</button>
+  </div>
+</div>
+
+<!-- ===== MODAL KOS ===== -->
+<div class="modal-overlay" id="kosModal">
+  <div class="modal-box">
+    <h3>🏠 Daftarkan Kos Kamu</h3>
+    <p>Foto kos <strong>wajib</strong> minimal 1, maksimal 4 foto.</p>
+    <div class="form-group"><label>Nama Pemilik *</label><input type="text" id="k_nama" placeholder="Nama lengkap"></div>
+    <div class="form-group"><label>Nama Kos *</label><input type="text" id="k_kos" placeholder="Kos Pak Budi"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Lokasi *</label><input type="text" id="k_lokasi" placeholder="Desa / area"></div>
+      <div class="form-group"><label>Jarak Gate</label><input type="text" id="k_jarak" placeholder="300m Gate 5"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Harga / Bulan *</label><input type="text" id="k_harga" placeholder="1.200.000"></div>
+      <div class="form-group"><label>Kapasitas</label><input type="number" id="k_kapasitas" placeholder="Max 3" min="1" max="10"></div>
+    </div>
+    <div class="form-group"><label>Fasilitas</label>
+      <div class="checkbox-group">
+        <label class="checkbox-item"><input type="checkbox" value="AC"> AC</label>
+        <label class="checkbox-item"><input type="checkbox" value="WiFi"> WiFi</label>
+        <label class="checkbox-item"><input type="checkbox" value="KM Dalam"> KM Dalam</label>
+        <label class="checkbox-item"><input type="checkbox" value="KM Luar"> KM Luar</label>
+        <label class="checkbox-item"><input type="checkbox" value="Dapur"> Dapur</label>
+        <label class="checkbox-item"><input type="checkbox" value="Parkir"> Parkir</label>
+        <label class="checkbox-item"><input type="checkbox" value="Mesin Cuci"> Mesin Cuci</label>
+        <label class="checkbox-item"><input type="checkbox" value="Listrik"> Listrik</label>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Foto Kos <span class="req-badge">WAJIB min 1, maks 4</span></label>
+      <div class="file-upload-area upload-required" id="kosPhotoArea" onclick="document.getElementById('kosPhotos').click()">
+        <input type="file" id="kosPhotos" accept="image/*" multiple onchange="handleKosPhotos(this)" style="display:none">
+        <div class="file-upload-label">📷 <strong>Klik upload foto kos</strong><br>Min 1, maks 4 foto · JPG/PNG</div>
+      </div>
+      <div class="preview-grid" id="kosPhotoPreview"></div>
+      <div class="upload-note" id="kosPhotoNote" style="color:var(--red)">⚠️ Foto kos wajib diupload!</div>
+    </div>
+    <div class="form-group"><label>Nomor WhatsApp *</label><input type="tel" id="k_wa" placeholder="628xxxxxxxxx"></div>
+    <button class="form-submit" onclick="submitKos()">✅ Daftarkan Sekarang</button>
+    <br><button class="modal-close-btn" onclick="closeModal('kosModal')">Tutup</button>
+  </div>
+</div>
+
+<!-- ===== MODAL MARKETPLACE ===== -->
+<div class="modal-overlay" id="marketModal">
+  <div class="modal-box">
+    <h3>🛒 Pasang Produkmu</h3>
+    <p>Foto <strong>wajib</strong>: kamu bareng dagangan. Hingga 100 item per listing.</p>
+    <div class="form-group"><label>Nama Penjual *</label><input type="text" id="m_nama" placeholder="Nama / nama toko"></div>
+    <div class="form-group"><label>Nama Produk *</label><input type="text" id="m_produk" placeholder="Nasi Kotak Harian (100 box/hari)"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Kategori *</label>
+        <select id="m_kategori"><option value="">Pilih...</option><option>Makanan & Minuman</option><option>Kendaraan</option><option>Elektronik</option><option>Pakaian & Fashion</option><option>Kebutuhan Rumah</option><option>Sayur & Buah</option><option>Bahan Bangunan</option><option>Lainnya</option></select>
+      </div>
+      <div class="form-group"><label>Harga *</label><input type="text" id="m_harga" placeholder="50.000"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Lokasi Penjual</label><input type="text" id="m_lokasi" placeholder="Desa / area"></div>
+      <div class="form-group"><label>Jumlah Item (maks 100)</label><input type="number" id="m_stok" placeholder="100" min="1" max="100"></div>
+    </div>
+    <div class="form-group"><label>Deskripsi</label><textarea id="m_desc" placeholder="Ceritakan produkmu..."></textarea></div>
+    <div class="form-group">
+      <label>Foto Kamu + Dagangan <span class="req-badge">WAJIB</span></label>
+      <div class="file-upload-area upload-required" onclick="document.getElementById('marketPhotos').click()">
+        <input type="file" id="marketPhotos" accept="image/*" multiple onchange="handleMarketPhotos(this)" style="display:none">
+        <div class="file-upload-label">🤳 <strong>Upload foto kamu bareng dagangan</strong><br>Maks 5 foto · JPG/PNG</div>
+      </div>
+      <div class="preview-grid" id="marketPhotoPreview"></div>
+      <div class="upload-note" id="marketPhotoNote" style="color:var(--red)">⚠️ Foto wajib!</div>
+    </div>
+    <div class="form-group"><label>Nomor WhatsApp *</label><input type="tel" id="m_wa" placeholder="628xxxxxxxxx"></div>
+    <button class="form-submit" onclick="submitMarket()">✅ Pasang Sekarang</button>
+    <br><button class="modal-close-btn" onclick="closeModal('marketModal')">Tutup</button>
+  </div>
+</div>
+
+<!-- ===== MODAL TULUNG ===== -->
+<div class="modal-overlay" id="tulungModal">
+  <div class="modal-box">
+    <h3>👍 Tawarkan Tumpangan</h3>
+    <p>Foto dirimu <strong>wajib</strong> agar penumpang tahu siapa yang menjemput.</p>
+    <div class="form-group">
+      <label>Foto Diri <span class="req-badge">WAJIB</span></label>
+      <div class="file-upload-area upload-required" id="tulungPhotoArea" onclick="document.getElementById('tulungPhoto').click()">
+        <input type="file" id="tulungPhoto" accept="image/*" onchange="handleTulungPhoto(this)" style="display:none">
+        <div class="file-upload-label">🤳 <strong>Upload selfie / foto dirimu</strong><br>1 foto · JPG/PNG</div>
+      </div>
+      <div class="preview-grid" id="tulungPhotoPreview"></div>
+      <div class="upload-note" id="tulungPhotoNote" style="color:var(--red)">⚠️ Foto wajib agar penumpang percaya!</div>
+    </div>
+    <div class="form-group"><label>Nama *</label><input type="text" id="t_nama" placeholder="Nama lengkap"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Asal *</label><input type="text" id="t_asal" placeholder="Lelilef"></div>
+      <div class="form-group"><label>Tujuan *</label><input type="text" id="t_tujuan" placeholder="Gate 7"></div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Shift *</label>
+        <select id="t_shift"><option value="">Pilih...</option><option>Shift 1 (06:00)</option><option>Shift 2 (14:00)</option><option>Shift 3 (22:00)</option><option>Non-Shift</option></select>
+      </div>
+      <div class="form-group"><label>Kendaraan *</label>
+        <select id="t_kendaraan"><option value="">Pilih...</option><option>🛵 Motor (1 seat)</option><option>🚗 Mobil (2 seat)</option><option>🚗 Mobil (3 seat)</option><option>🚌 Angkot</option></select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group"><label>Harga / Trip *</label><input type="text" id="t_harga" placeholder="10.000"></div>
+      <div class="form-group"><label>Langganan?</label>
+        <select id="t_langganan"><option>Boleh Langganan</option><option>Sekali Jalan Saja</option></select>
+      </div>
+    </div>
+    <div class="form-group"><label>WhatsApp *</label><input type="tel" id="t_wa" placeholder="628xxxxxxxxx"></div>
+    <button class="form-submit" onclick="submitTulung()">✅ Daftarkan Sekarang</button>
+    <br><button class="modal-close-btn" onclick="closeModal('tulungModal')">Tutup</button>
+  </div>
+</div>
+
+<!-- ===== MODAL BENGKEL ===== -->
+<div class="modal-overlay" id="svcModal">
+  <div class="modal-box">
+    <h3>🔧 Daftarkan Bengkel / Service HP</h3>
+    <p>Daftar gratis. Isi data lengkap agar pelanggan mudah menemukan kamu.</p>
+    <div class="form-group"><label>Nama Bengkel / Toko *</label><input type="text" id="s_nama" placeholder="Bengkel Pak Budi"></div>
+    <div class="form-group"><label>Jenis Layanan *</label>
+      <select id="s_jenis"><option value="">Pilih...</option><option>🔧 Bengkel Motor</option><option>📱 Service HP / Gadget</option><option>🔧📱 Bengkel + Service HP</option></select>
+    </div>
+    <div class="form-group"><label>Lokasi *</label><input type="text" id="s_lokasi" placeholder="Desa/area, patokan jelas"></div>
+    <div class="form-row">
+      <div class="form-group"><label>Jam Buka *</label><input type="time" id="s_buka" value="08:00"></div>
+      <div class="form-group"><label>Jam Tutup *</label><input type="time" id="s_tutup" value="17:00"></div>
+    </div>
+    <div class="form-group"><label>Layanan</label><textarea id="s_layanan" placeholder="ganti oli, ganti ban, tune-up..."></textarea></div>
+    <div class="form-group">
+      <label>Foto Bengkel (opsional)</label>
+      <div class="file-upload-area" onclick="document.getElementById('svcPhotos').click()">
+        <input type="file" id="svcPhotos" accept="image/*" multiple onchange="handleSvcPhotos(this)" style="display:none">
+        <div class="file-upload-label">📷 <strong>Upload foto bengkel / toko</strong><br>Maks 3 foto</div>
+      </div>
+      <div class="preview-grid" id="svcPhotoPreview"></div>
+    </div>
+    <div class="form-group"><label>WhatsApp *</label><input type="tel" id="s_wa" placeholder="628xxxxxxxxx"></div>
+    <button class="form-submit" onclick="submitSvc()">✅ Daftarkan Sekarang</button>
+    <br><button class="modal-close-btn" onclick="closeModal('svcModal')">Tutup</button>
+  </div>
+</div>
+
+<script>
+// ── Cursor ──
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
+
+// ── Reveal ──
+const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('visible'),i*60);});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+function sc(id){document.getElementById(id).scrollIntoView({behavior:'smooth'});}
+
+// ── Modal ──
+function openModal(id){document.getElementById(id).classList.add('open');document.body.style.overflow='hidden';}
+function closeModal(id){document.getElementById(id).classList.remove('open');document.body.style.overflow='';}
+document.querySelectorAll('.modal-overlay').forEach(m=>m.addEventListener('click',e=>{if(e.target===m){m.classList.remove('open');document.body.style.overflow=''}}));
+
+// ── Toast ──
+function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.style.transform='translateX(-50%) translateY(0)';setTimeout(()=>t.style.transform='translateX(-50%) translateY(100px)',3500);}
+
+// ── AUTH STATE ──
+let currentUser=null;
+
+// Provider avatars (generated initials)
+function makeAvatar(name,color){
+  const c=document.createElement('canvas');c.width=80;c.height=80;
+  const ctx=c.getContext('2d');
+  ctx.fillStyle=color;ctx.fillRect(0,0,80,80);
+  ctx.fillStyle='white';ctx.font='bold 32px Sora,sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';
+  ctx.fillText(name.charAt(0).toUpperCase(),40,40);
+  return c.toDataURL();
+}
+
+const providerColors={Google:'#4285f4',Facebook:'#1877f2',TikTok:'#010101',WhatsApp:'#25d366'};
+
+function doLogin(provider,avatarUrl,initial){
+  const names={Google:'User Google',Facebook:'User Facebook',TikTok:'User TikTok'};
+  const name=names[provider]||provider;
+  const avatar=makeAvatar(initial,providerColors[provider]);
+  finishLogin({name,avatar,provider,verified:true});
+}
+function doLoginWA(){
+  const v=document.getElementById('waLoginInput').value.trim();
+  if(!v||v.length<8){showToast('⚠️ Masukkan nomor WhatsApp yang valid!');return;}
+  const avatar=makeAvatar('W',providerColors.WhatsApp);
+  finishLogin({name:'WA '+v.slice(-4),avatar,provider:'WhatsApp',verified:true});
+}
+function finishLogin(user){
+  currentUser=user;
+  // Update nav
+  const pill=document.getElementById('userPill');
+  document.getElementById('pillAvatar').src=user.avatar;
+  document.getElementById('pillName').textContent=user.name;
+  document.getElementById('pillBadge').textContent='✅ '+user.provider;
+  pill.classList.add('show');
+  document.getElementById('loginBtn').style.display='none';
+  closeModal('loginModal');
+  showToast('👋 Halo '+user.name+'! Kamu sudah masuk ke ATSU.');
+  // refresh review forms
+  document.querySelectorAll('[id^="reviewForm_"]').forEach(f=>{f.classList.remove('open');});
+}
+function logout(){
+  if(!currentUser)return;
+  const name=currentUser.name;
+  currentUser=null;
+  document.getElementById('userPill').classList.remove('show');
+  document.getElementById('loginBtn').style.display='';
+  showToast('👋 Sampai jumpa, '+name+'!');
+}
+
+// guard — need login to post
+function guardedOpen(modalId){
+  if(!currentUser){
+    showToast('⚠️ Login dulu untuk menggunakan fitur ini!');
+    openModal('loginModal');
+    return;
+  }
+  openModal(modalId);
+}
+
+// ── STAR RATING INIT ──
+// productData[idx] = {rating, count, sold, reviews:[]}
+const productData=[
+  {rating:4.8,count:12,sold:48,reviews:[
+    {name:'Bung Eko',provider:'Google',avatar:null,stars:5,text:'Nasi kotaknya enak, lauk lengkap dan tepat waktu!',date:'20 Feb 2025'},
+    {name:'Kak Rina',provider:'WhatsApp',avatar:null,stars:5,text:'Recommended banget, porsi besar harga murah.',date:'18 Feb 2025'},
+  ]},
+  {rating:5.0,count:3,sold:1,reviews:[
+    {name:'Pak Dani',provider:'Facebook',avatar:null,stars:5,text:'Motor mulus, sesuai deskripsi. Penjual ramah!',date:'15 Feb 2025'},
+  ]},
+];
+// Add more items dynamically
+let numProducts=2;
+
+function initStars(){
+  productData.forEach((p,idx)=>{
+    renderStarsDisplay(idx,p.rating);
+    renderReviews(idx);
+  });
+}
+
+function renderStarsDisplay(idx,rating){
+  const el=document.getElementById('stars_'+idx);
+  if(!el)return;
+  el.innerHTML='';
+  for(let i=1;i<=5;i++){
+    const s=document.createElement('span');
+    s.className='star'+(i<=Math.round(rating)?' filled':'');
+    s.textContent='★';
+    el.appendChild(s);
+  }
+  const p=productData[idx];
+  const rc=document.getElementById('rcount_'+idx);
+  const sc2=document.getElementById('sold_'+idx);
+  if(rc)rc.textContent=p.rating.toFixed(1)+' ('+p.count+' ulasan)';
+  if(sc2)sc2.textContent='· '+p.sold+' terjual';
+}
+
+function renderReviews(idx){
+  const list=document.getElementById('reviewList_'+idx);
+  if(!list)return;
+  const reviews=productData[idx].reviews;
+  if(reviews.length===0){list.innerHTML='<div class="no-reviews">Belum ada ulasan. Jadilah yang pertama! ✍️</div>';return;}
+  list.innerHTML=reviews.map(r=>`
+    <div class="review-item">
+      <div class="review-meta">
+        <div style="width:22px;height:22px;border-radius:50%;background:${providerColors[r.provider]||'#333'};display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:700;color:white;flex-shrink:0">${r.name.charAt(0)}</div>
+        <span class="review-uname">${r.name}</span>
+        <span class="review-verified">✅ ${r.provider}</span>
+        <div class="review-stars" style="margin-left:auto">${'★'.repeat(r.stars)}</div>
+      </div>
+      <div class="review-text">${r.text}</div>
+      <div class="review-date">${r.date}</div>
+    </div>`).join('');
+}
+
+function toggleReviewForm(idx){
+  if(!currentUser){
+    showToast('⚠️ Login dulu untuk menulis ulasan!');
+    openModal('loginModal');
+    return;
+  }
+  const form=document.getElementById('reviewForm_'+idx);
+  const isOpen=form.classList.contains('open');
+  document.querySelectorAll('.review-form').forEach(f=>f.classList.remove('open'));
+  if(!isOpen){
+    form.classList.add('open');
+    renderReviewFormContent(idx);
+  }
+}
+
+// per-product star pick state
+const pickState={};
+
+function renderReviewFormContent(idx){
+  if(!pickState[idx])pickState[idx]=0;
+  const container=document.getElementById('reviewFormContent_'+idx);
+  container.innerHTML=`
+    <div style="font-size:.7rem;color:var(--muted);margin-bottom:.4rem;font-weight:600">Rating kamu:</div>
+    <div class="star-picker" id="picker_${idx}">
+      ${[1,2,3,4,5].map(i=>`<span class="star-pick${i<=pickState[idx]?' on':''}" onclick="setPick(${idx},${i})" onmouseover="hoverPick(${idx},${i})" onmouseout="hoverOut(${idx})">★</span>`).join('')}
+    </div>
+    <textarea class="review-input" id="reviewText_${idx}" placeholder="Ceritakan pengalamanmu..." rows="2"></textarea>
+    <button class="review-submit" onclick="submitReview(${idx})">Kirim Ulasan ✓</button>`;
+}
+
+function setPick(idx,val){pickState[idx]=val;renderReviewFormContent(idx);}
+function hoverPick(idx,val){
+  const stars=document.querySelectorAll(`#picker_${idx} .star-pick`);
+  stars.forEach((s,i)=>{s.style.color=i<val?'var(--gold)':'#333';});
+}
+function hoverOut(idx){
+  const stars=document.querySelectorAll(`#picker_${idx} .star-pick`);
+  stars.forEach((s,i)=>{s.style.color=i<(pickState[idx]||0)?'var(--gold)':'#333';});
+}
+
+function submitReview(idx){
+  const stars=pickState[idx]||0;
+  if(stars===0){showToast('⚠️ Pilih bintang dulu!');return;}
+  const text=document.getElementById('reviewText_'+idx).value.trim();
+  if(!text){showToast('⚠️ Tulis komentar dulu!');return;}
+  const now=new Date();
+  const dateStr=now.getDate()+' '+['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des'][now.getMonth()]+' '+now.getFullYear();
+  productData[idx].reviews.unshift({name:currentUser.name,provider:currentUser.provider,stars,text,date:dateStr});
+  // recalculate rating
+  const p=productData[idx];
+  const total=p.reviews.reduce((s,r)=>s+r.stars,0);
+  p.count=p.reviews.length;
+  p.rating=Math.round((total/p.count)*10)/10;
+  p.sold+=1;
+  renderStarsDisplay(idx,p.rating);
+  renderReviews(idx);
+  document.getElementById('reviewForm_'+idx).classList.remove('open');
+  pickState[idx]=0;
+  showToast('🎉 Ulasan kamu berhasil dikirim!');
+}
+
+// ── GALLERY ──
+function buildGallery(container,photos){
+  container.innerHTML='';
+  if(!photos||photos.length===0){container.innerHTML='<div class="no-photo">🏠</div>';return;}
+  photos.forEach((src,i)=>{const img=document.createElement('img');img.src=src;img.className=i===0?'active':'';container.appendChild(img);});
+  if(photos.length>1){
+    const dots=document.createElement('div');dots.className='gallery-dots';
+    photos.forEach((_,i)=>{const d=document.createElement('div');d.className='gallery-dot'+(i===0?' active':'');d.onclick=()=>goSlide(container,i);dots.appendChild(d);});
+    container.appendChild(dots);
+    const prev=document.createElement('button');prev.className='gallery-nav prev';prev.textContent='‹';prev.onclick=()=>goSlide(container,(curSlide(container)-1+photos.length)%photos.length);
+    const next=document.createElement('button');next.className='gallery-nav next';next.textContent='›';next.onclick=()=>goSlide(container,(curSlide(container)+1)%photos.length);
+    container.appendChild(prev);container.appendChild(next);
+  }
+}
+function curSlide(c){return[...c.querySelectorAll('img')].findIndex(i=>i.classList.contains('active'));}
+function goSlide(c,idx){
+  [...c.querySelectorAll('img')].forEach((i,n)=>i.className=n===idx?'active':'');
+  [...c.querySelectorAll('.gallery-dot')].forEach((d,n)=>d.className='gallery-dot'+(n===idx?' active':''));
+}
+
+// ── PHOTO HANDLERS ──
+let kosPhotoData=[],marketPhotoData=[],tulungPhotoData=null,svcPhotoData=[];
+
+function handleKosPhotos(inp){
+  const files=[...inp.files];
+  if(kosPhotoData.length+files.length>4){showToast('⚠️ Maksimal 4 foto!');inp.value='';return;}
+  files.forEach(f=>{if(kosPhotoData.length>=4)return;const r=new FileReader();r.onload=e=>{kosPhotoData.push(e.target.result);renderKosPreview();};r.readAsDataURL(f);});
+  inp.value='';
+}
+function renderKosPreview(){
+  const el=document.getElementById('kosPhotoPreview'),note=document.getElementById('kosPhotoNote');
+  el.innerHTML=kosPhotoData.map((d,i)=>`<div class="preview-item"><img class="preview-img" src="${d}"><button class="preview-remove" onclick="removeKosPhoto(${i})">✕</button></div>`).join('');
+  if(kosPhotoData.length>0){note.textContent=`✅ ${kosPhotoData.length}/4 foto`;note.style.color='var(--green)';}
+  else{note.textContent='⚠️ Foto wajib!';note.style.color='var(--red)';}
+}
+function removeKosPhoto(i){kosPhotoData.splice(i,1);renderKosPreview();}
+
+function handleMarketPhotos(inp){
+  const files=[...inp.files];
+  if(marketPhotoData.length+files.length>5){showToast('⚠️ Maksimal 5 foto!');inp.value='';return;}
+  files.forEach(f=>{if(marketPhotoData.length>=5)return;const r=new FileReader();r.onload=e=>{marketPhotoData.push(e.target.result);renderMarketPreview();};r.readAsDataURL(f);});
+  inp.value='';
+}
+function renderMarketPreview(){
+  const el=document.getElementById('marketPhotoPreview'),note=document.getElementById('marketPhotoNote');
+  el.innerHTML=marketPhotoData.map((d,i)=>`<div class="preview-item"><img class="preview-img" src="${d}"><button class="preview-remove" onclick="removeMarketPhoto(${i})">✕</button></div>`).join('');
+  if(marketPhotoData.length>0){note.textContent=`✅ ${marketPhotoData.length} foto`;note.style.color='var(--green)';}
+  else{note.textContent='⚠️ Foto wajib!';note.style.color='var(--red)';}
+}
+function removeMarketPhoto(i){marketPhotoData.splice(i,1);renderMarketPreview();}
+
+function handleTulungPhoto(inp){
+  if(!inp.files[0])return;
+  const r=new FileReader();r.onload=e=>{tulungPhotoData=e.target.result;renderTulungPreview();};r.readAsDataURL(inp.files[0]);inp.value='';
+}
+function renderTulungPreview(){
+  const el=document.getElementById('tulungPhotoPreview'),note=document.getElementById('tulungPhotoNote');
+  if(tulungPhotoData){el.innerHTML=`<div class="preview-item"><img class="preview-img" src="${tulungPhotoData}" style="width:72px;height:72px;border-radius:50%"><button class="preview-remove" onclick="removeTulungPhoto()">✕</button></div>`;note.textContent='✅ Foto terupload!';note.style.color='var(--green)';}
+  else{el.innerHTML='';note.textContent='⚠️ Foto wajib!';note.style.color='var(--red)';}
+}
+function removeTulungPhoto(){tulungPhotoData=null;renderTulungPreview();}
+
+function handleSvcPhotos(inp){
+  const files=[...inp.files];
+  if(svcPhotoData.length+files.length>3){showToast('⚠️ Maksimal 3 foto!');inp.value='';return;}
+  files.forEach(f=>{if(svcPhotoData.length>=3)return;const r=new FileReader();r.onload=e=>{svcPhotoData.push(e.target.result);renderSvcPreview();};r.readAsDataURL(f);});
+  inp.value='';
+}
+function renderSvcPreview(){
+  document.getElementById('svcPhotoPreview').innerHTML=svcPhotoData.map((d,i)=>`<div class="preview-item"><img class="preview-img" src="${d}"><button class="preview-remove" onclick="removeSvcPhoto(${i})">✕</button></div>`).join('');
+}
+function removeSvcPhoto(i){svcPhotoData.splice(i,1);renderSvcPreview();}
+
+// ── SUBMIT KOS ──
+function submitKos(){
+  const nama=document.getElementById('k_nama').value.trim(),kos=document.getElementById('k_kos').value.trim(),lokasi=document.getElementById('k_lokasi').value.trim(),harga=document.getElementById('k_harga').value.trim(),wa=document.getElementById('k_wa').value.trim();
+  if(!nama||!kos||!lokasi||!harga||!wa){showToast('⚠️ Lengkapi field wajib!');return;}
+  if(kosPhotoData.length===0){showToast('⚠️ Foto kos wajib!');return;}
+  const fasilitas=[...document.querySelectorAll('#kosModal input[type=checkbox]:checked')].map(c=>c.value);
+  const kapasitas=document.getElementById('k_kapasitas').value,jarak=document.getElementById('k_jarak').value;
+  const card=document.createElement('div');card.className='kos-card reveal visible';
+  const gid='kg_'+Date.now();
+  card.innerHTML=`<div class="photo-gallery" id="${gid}"><div class="kos-avail">✓ Baru</div></div><div class="kos-body"><div class="kos-name">${kos}</div><div class="kos-loc">📍 ${lokasi}${jarak?' · '+jarak:''}</div><div class="kos-tags">${fasilitas.map(f=>`<span class="kos-tag">${f}</span>`).join('')}${kapasitas?`<span class="kos-tag">Max ${kapasitas} Org</span>`:''}</div><div class="kos-footer"><div class="kos-price">Rp ${parseInt(harga.replace(/\D/g,'')).toLocaleString('id-ID')} <span>/bulan</span></div><a class="wa-btn" href="https://wa.me/${wa.replace(/\D/g,'')}" target="_blank">💬 WA</a></div></div>`;
+  document.getElementById('kosGrid').appendChild(card);
+  buildGallery(card.querySelector('.photo-gallery'),kosPhotoData);
+  kosPhotoData=[];renderKosPreview();
+  closeModal('kosModal');showToast('🎉 Kos '+kos+' berhasil didaftarkan!');sc('kos');
+}
+
+// ── SUBMIT MARKET ──
+function submitMarket(){
+  const nama=document.getElementById('m_nama').value.trim(),produk=document.getElementById('m_produk').value.trim(),kategori=document.getElementById('m_kategori').value,harga=document.getElementById('m_harga').value.trim(),wa=document.getElementById('m_wa').value.trim();
+  if(!nama||!produk||!kategori||!harga||!wa){showToast('⚠️ Lengkapi field wajib!');return;}
+  if(marketPhotoData.length===0){showToast('⚠️ Foto penjual + dagangan wajib!');return;}
+  const lokasi=document.getElementById('m_lokasi').value,stok=document.getElementById('m_stok').value;
+  const idx=numProducts++;
+  productData.push({rating:0,count:0,sold:0,reviews:[]});
+  const emojis={'Makanan & Minuman':'🍱','Kendaraan':'🛵','Elektronik':'📱','Pakaian & Fashion':'👕','Kebutuhan Rumah':'🏠','Sayur & Buah':'🥦','Bahan Bangunan':'🧱','Lainnya':'📦'};
+  const card=document.createElement('div');card.className='market-card reveal visible';
+  const gid='mg_'+Date.now();
+  card.innerHTML=`
+    <div class="market-img-gallery" id="${gid}"><div class="market-cat">${kategori}</div></div>
+    <div class="market-body">
+      <div class="market-seller-row">
+        <img class="seller-avatar" src="${marketPhotoData[0]}" alt="${nama}">
+        <div class="market-seller-info"><div class="name">${nama}</div><div class="loc">📍 ${lokasi||'Weda Bay'}${stok?' · '+stok+' item':''}</div></div>
+      </div>
+      <div class="market-name">${produk}</div>
+      <div class="rating-summary">
+        <div class="stars-display" id="stars_${idx}"></div>
+        <span class="rating-count" id="rcount_${idx}">Belum ada ulasan</span>
+        <span class="sold-count" id="sold_${idx}">· 0 terjual</span>
+      </div>
+      <div class="market-footer"><div class="market-price">Rp ${parseInt(harga.replace(/\D/g,'')).toLocaleString('id-ID')}</div><a class="market-wa" href="https://wa.me/${wa.replace(/\D/g,'')}" target="_blank">💬 WA</a></div>
+      <div class="review-section">
+        <div class="review-header"><span class="review-title">💬 Ulasan Pembeli</span><button class="review-btn" onclick="toggleReviewForm(${idx})">+ Tulis Ulasan</button></div>
+        <div class="review-form" id="reviewForm_${idx}"><div id="reviewFormContent_${idx}"></div></div>
+        <div class="review-list" id="reviewList_${idx}"><div class="no-reviews">Belum ada ulasan. Jadilah yang pertama! ✍️</div></div>
+      </div>
+    </div>`;
+  document.getElementById('marketGrid').appendChild(card);
+  buildGallery(card.querySelector('.market-img-gallery'),marketPhotoData);
+  renderStarsDisplay(idx,0);
+  marketPhotoData=[];renderMarketPreview();
+  closeModal('marketModal');showToast('🎉 '+produk+' berhasil dipasang!');sc('market');
+}
+
+// ── SUBMIT TULUNG ──
+function submitTulung(){
+  const nama=document.getElementById('t_nama').value.trim(),asal=document.getElementById('t_asal').value.trim(),tujuan=document.getElementById('t_tujuan').value.trim(),shift=document.getElementById('t_shift').value,kendaraan=document.getElementById('t_kendaraan').value,harga=document.getElementById('t_harga').value.trim(),wa=document.getElementById('t_wa').value.trim();
+  if(!nama||!asal||!tujuan||!shift||!kendaraan||!harga||!wa){showToast('⚠️ Lengkapi field wajib!');return;}
+  if(!tulungPhotoData){showToast('⚠️ Foto diri wajib!');return;}
+  const langganan=document.getElementById('t_langganan').value;
+  const card=document.createElement('div');card.className='tulung-card reveal visible';
+  card.innerHTML=`<div class="tulung-header"><img class="seller-avatar" src="${tulungPhotoData}" alt="${nama}"><div class="tulung-info"><h4>${nama}</h4><span>${kendaraan}</span></div></div><div class="tulung-route"><div class="route-point"><div class="route-label">Dari</div><div class="route-place">${asal}</div></div><div class="route-arrow">→</div><div class="route-point"><div class="route-label">Tujuan</div><div class="route-place">${tujuan}</div></div></div><div class="tulung-tags"><span class="tulung-tag shift">⏰ ${shift}</span><span class="tulung-tag">${kendaraan}</span><span class="tulung-tag">📅 ${langganan}</span></div><div class="tulung-footer"><div class="tulung-price">Rp ${parseInt(harga.replace(/\D/g,'')).toLocaleString('id-ID')}<span style="font-family:'Sora';font-size:.62rem;color:var(--muted);font-weight:400">/trip</span></div><a class="tulung-wa" href="https://wa.me/${wa.replace(/\D/g,'')}" target="_blank">👍 Tulung</a></div>`;
+  document.getElementById('tulungGrid').appendChild(card);
+  tulungPhotoData=null;renderTulungPreview();
+  closeModal('tulungModal');showToast('🎉 Tumpangan '+nama+' berhasil!');sc('tulung');
+}
+
+// ── SUBMIT SVC ──
+function submitSvc(){
+  const nama=document.getElementById('s_nama').value.trim(),jenis=document.getElementById('s_jenis').value,lokasi=document.getElementById('s_lokasi').value.trim(),buka=document.getElementById('s_buka').value,tutup=document.getElementById('s_tutup').value,wa=document.getElementById('s_wa').value.trim();
+  if(!nama||!jenis||!lokasi||!wa){showToast('⚠️ Lengkapi field wajib!');return;}
+  const layanan=document.getElementById('s_layanan').value;
+  const isMotor=jenis.includes('Bengkel'),isHP=jenis.includes('Service HP')||jenis.includes('+');
+  const icon=isMotor&&isHP?'🔧📱':isMotor?'🔧':'📱';
+  const typeLabel=isMotor&&isHP?'Bengkel + Service HP':isMotor?'Bengkel Motor':'Service HP';
+  const typeCSS=isMotor?'motor':'hp';
+  const tagClass=isMotor?'svc-tag':'svc-tag hp-tag';
+  const tags=layanan?layanan.split(',').map(t=>t.trim()).filter(Boolean).map(t=>`<span class="${tagClass}">${t}</span>`).join(''):'';
+  const card=document.createElement('div');card.className='svc-card reveal visible';
+  card.innerHTML=`<div class="svc-img">${icon}<div class="svc-type ${typeCSS}">${typeLabel}</div><div class="svc-open buka">● Buka</div></div><div class="svc-body"><div class="svc-name">${nama}</div><div class="svc-loc">📍 ${lokasi}</div><div class="svc-services">${tags}</div><div class="svc-footer"><div class="svc-jam">⏰ ${buka}–${tutup}</div><a class="svc-wa" href="https://wa.me/${wa.replace(/\D/g,'')}" target="_blank">💬 WA</a></div></div>`;
+  document.getElementById('svcGrid').appendChild(card);
+  svcPhotoData=[];
+  closeModal('svcModal');showToast('🎉 '+nama+' berhasil didaftarkan!');sc('bengkel');
+}
+
+// ── INIT ──
+initStars();
+</script>
+</body>
+</htmlat
