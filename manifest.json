@@ -1,24 +1,27 @@
 {
-  "name": "ATSU - Aku Siap Tulung",
+  "name": "ATSU - Aing Torang Sekampung",
   "short_name": "ATSU",
-  "description": "Aplikasi komunitas Weda Bay",
-  "start_url": "/atsu/",
-  "scope": "/atsu/",
+  "description": "Aplikasi komunitas Weda Bay - Satu Platform Banyak Solusi",
+  "start_url": "/",
   "display": "standalone",
+  "background_color": "#04040e",
+  "theme_color": "#7090e8",
   "orientation": "portrait",
-  "background_color": "#0a0a1a",
-  "theme_color": "#00e5ff",
-  "lang": "id",
+  "id": "atsu-app",
+  "categories": ["utilities", "lifestyle", "social"],
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
-  ]
+  ],
+  "screenshots": []
 }
