@@ -1,27 +1,72 @@
-{
+[1:23 pm, 28/02/2026] Rossih Boy: {
   "name": "ATSU - Aing Torang Sekampung",
   "short_name": "ATSU",
-  "description": "Aplikasi komunitas Weda Bay - Satu Platform Banyak Solusi",
+  "description": "Aplikasi komunitas Weda Bay",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#04040e",
   "theme_color": "#7090e8",
-  "orientation": "portrait",
   "id": "atsu-app",
-  "categories": ["utilities", "lifestyle", "social"],
   "icons": [
     {
       "src": "icon-192.png",
       "sizes": "192x192",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
-  ],
-  "screenshots": []
+  ]
+}
+[1:24 pm, 28/02/2026] Rossih Boy: {
+  "name": "ATSU - Aing Torang Sekampung",
+  "short_name": "ATSU",
+  "description": "Aplikasi komunitas Weda Bay",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#04040e",
+  "theme_color": "#7090e8",
+  "id": "atsu-app",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
 }
